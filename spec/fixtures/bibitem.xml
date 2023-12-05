@@ -1,0 +1,15 @@
+<bibitem id="ETSIEN319532-4V1.3.02023-10" schema-version="v1.2.7">
+  <title format="text/plain" language="en" script="Latn">Title</title>
+  <docidentifier type="ETSI" primary="true">ETSI EN 319 532-4 V1.3.0 (2023-10)</docidentifier>
+  <docnumber>ETSI EN 319 532-4 V1.3.0 (2023-10)</docnumber>
+  <date type="published">
+    <on>2023-10</on>
+  </date>
+  <version>
+    <draft>1.3.0</draft>
+  </version>
+  <language>en</language>
+  <script>Latn</script>
+  <abstract format="text/plain" language="en" script="Latn">abstract</abstract>
+  <keyword>keyword</keyword>
+</bibitem>

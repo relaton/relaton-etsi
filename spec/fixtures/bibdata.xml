@@ -1,0 +1,25 @@
+<bibdata schema-version="v1.2.7">
+  <title format="text/plain" language="en" script="Latn">Title</title>
+  <docidentifier type="ETSI" primary="true">ETSI EN 319 532-4 V1.3.0 (2023-10)</docidentifier>
+  <docnumber>ETSI EN 319 532-4 V1.3.0 (2023-10)</docnumber>
+  <date type="published">
+    <on>2023-10</on>
+  </date>
+  <version>
+    <draft>1.3.0</draft>
+  </version>
+  <language>en</language>
+  <script>Latn</script>
+  <abstract format="text/plain" language="en" script="Latn">abstract</abstract>
+  <keyword>keyword</keyword>
+  <ext schema-version="v0.0.3">
+    <doctype abbreviation="EN">European Standard</doctype>
+    <editorialgroup>
+      <technical-committee>WG1</technical-committee>
+    </editorialgroup>
+    <marker>Current</marker>
+    <frequency>Annual</frequency>
+    <mandate>M/123</mandate>
+    <custom-collection>HSs cited in OJ</custom-collection>
+  </ext>
+</bibdata>

@@ -1,0 +1,47 @@
+---
+schema-version: v1.2.7
+id: ETSIEN319532-4V1.3.02023-10
+title:
+- content: Title
+  language:
+  - en
+  script:
+  - Latn
+  format: text/plain
+docid:
+- id: ETSI EN 319 532-4 V1.3.0 (2023-10)
+  type: ETSI
+  primary: true
+docnumber: ETSI EN 319 532-4 V1.3.0 (2023-10)
+date:
+- type: published
+  value: 2023-10
+version:
+- draft: 1.3.0
+revdate: 2023-10
+language:
+- en
+script:
+- Latn
+abstract:
+- content: abstract
+  language:
+  - en
+  script:
+  - Latn
+  format: text/plain
+keyword:
+- content: keyword
+doctype:
+  type: European Standard
+  abbreviation: EN
+editorialgroup:
+- name: WG1
+ext:
+  schema-version: v0.0.3
+marker: Current
+frequency:
+- Annual
+mandate:
+- M/123
+custom_collection: HSs cited in OJ
