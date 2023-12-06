@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "net/http"
 require "open-uri"
 require "csv"
 require "relaton/index"

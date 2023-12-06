@@ -8,6 +8,7 @@ describe RelatonEtsi::BibliographicItem do
       id: "ETSIEN319532-4V1.3.02023-10",
       title: [{ content: "Title", language: "en", script: "Latn" }],
       docnumber: "ETSI EN 319 532-4 V1.3.0 (2023-10)",
+      link: [{ type: "src", content: "http://webapp.etsi.org/workprogram/Report_WorkItem.asp?WKI_ID=62010" }],
       date: [{ type: "published", on: "2023-10" }], docid: [docid],
       version: [RelatonBib::BibliographicItem::Version.new(nil, "1.3.0")],
       status: RelatonBib::DocumentStatus.new(stage: "draft"),

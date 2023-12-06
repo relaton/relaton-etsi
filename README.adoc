@@ -56,6 +56,8 @@ item.to_xml
 => "<bibitem id="ETSIGSZSM012V1.1.12022-12" schema-version="v1.2.7">
       <fetched>2023-12-05</fetched>
       <title format="text/plain" language="en" script="Latn">Zero-touch network and Service Management (ZSM); Enablers for Artificial Intelligence-based Network and Service Automation</title>
+      <uri type="src">http://webapp.etsi.org/workprogram/Report_WorkItem.asp?WKI_ID=62010</uri>
+      <uri type="pdf">http://www.etsi.org/deliver/etsi_gs/ZSM/001_099/012/01.01.01_60/gs_ZSM012v010101p.pdf</uri>
       <docidentifier type="ETSI" primary="true">ETSI GS ZSM 012 V1.1.1 (2022-12)</docidentifier>
       ...
     </bibitem>"
@@ -67,6 +69,8 @@ item.to_xml bibdata: true
 => "<bibdata schema-version="v1.2.7">
       <fetched>2023-12-05</fetched>
       <title format="text/plain" language="en" script="Latn">Zero-touch network and Service Management (ZSM); Enablers for Artificial Intelligence-based Network and Service Automation</title>
+      <uri type="src">http://webapp.etsi.org/workprogram/Report_WorkItem.asp?WKI_ID=62010</uri>
+      <uri type="pdf">http://www.etsi.org/deliver/etsi_gs/ZSM/001_099/012/01.01.01_60/gs_ZSM012v010101p.pdf</uri>
       <docidentifier type="ETSI" primary="true">ETSI GS ZSM 012 V1.1.1 (2022-12)</docidentifier>
       ...
       <ext schema-version="v0.0.3">
@@ -85,16 +89,16 @@ All the ETSI documents have SRC and PDF links. The gem provides a way to access 
 [source,ruby]
 ----
 item.link
-=> [#<RelatonBib::TypedUri:0x000000011420d950
-      @content=#<Addressable::URI:0xc1c URI:http://webapp.etsi.org/workprogram/Report_WorkItem.asp?WKI_ID=62010>,
-      @language=nil,
-      @script=nil,
-      @type="src">,
-    #<RelatonBib::TypedUri:0x000000011420d8a0
-      @content=#<Addressable::URI:0x1c1c URI:http://www.etsi.org/deliver/etsi_gs/ZSM/001_099/012/01.01.01_60/gs_ZSM012v010101p.pdf>,
-      @language=nil,
-      @script=nil,
-      @type="pdf">,]
+=> [#<RelatonBib::TypedUri:0x00000001083da780
+  @content=#<Addressable::URI:0xb40 URI:http://webapp.etsi.org/workprogram/Report_WorkItem.asp?WKI_ID=62010>,
+  @language=nil,
+  @script=nil,
+  @type="src">,
+ #<RelatonBib::TypedUri:0x00000001083da690
+  @content=#<Addressable::URI:0xb54 URI:http://www.etsi.org/deliver/etsi_gs/ZSM/001_099/012/01.01.01_60/gs_ZSM012v010101p.pdf>,
+  @language=nil,
+  @script=nil,
+  @type="pdf">]
 
 item.link.size
 => 2
