@@ -1,6 +1,6 @@
 module RelatonEtsi
   class DataParser
-    ATTRS = %i[id title docnumber date docid version status keyword editorialgroup
+    ATTRS = %i[id title docnumber link date docid version status keyword editorialgroup
                doctype abstract language script].freeze
 
     def initialize(row)
@@ -28,6 +28,12 @@ module RelatonEtsi
 
     def docnumber
       @row["ETSI deliverable"]
+    end
+
+    def link
+      urls = []
+      urls << RelatonBib::TypedUri.new(content: @row["Details link"], type: "src")
+      urls << RelatonBib::TypedUri.new(content: @row["PDF link"], type: "pdf")
     end
 
     def date

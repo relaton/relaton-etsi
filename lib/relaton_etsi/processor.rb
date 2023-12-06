@@ -48,7 +48,7 @@ module RelatonEtsi
     # Returns hash of XML grammar
     # @return [String]
     def grammar_hash
-      @grammar_hash ||= ::Relaton3gpp.grammar_hash
+      @grammar_hash ||= ::RelatonEtsi.grammar_hash
     end
 
     #

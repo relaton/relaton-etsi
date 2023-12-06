@@ -15,6 +15,7 @@ describe RelatonEtsi::DataParser do
       expect(subject).to receive(:id).and_return :id
       expect(subject).to receive(:title).and_return :title
       expect(subject).to receive(:docnumber).and_return :docnumber
+      expect(subject).to receive(:link).and_return :link
       expect(subject).to receive(:date).and_return :date
       expect(subject).to receive(:docid).and_return :docid
       expect(subject).to receive(:version).and_return :version
@@ -24,7 +25,7 @@ describe RelatonEtsi::DataParser do
       expect(subject).to receive(:doctype).and_return :doctype
       expect(subject).to receive(:abstract).and_return :abstract
       expect(RelatonEtsi::BibliographicItem).to receive(:new).with(
-        id: :id, title: :title, docnumber: :docnumber, date: :date,
+        id: :id, title: :title, docnumber: :docnumber, link: :link, date: :date,
         docid: :docid, version: :version, status: :status, keyword: :keyword,
         editorialgroup: :editorialgroup, doctype: :doctype, abstract: :abstract,
         language: ["en"], script: ["Latn"]
@@ -54,6 +55,18 @@ describe RelatonEtsi::DataParser do
     it "#docnumber" do
       expect(row).to receive(:[]).with("ETSI deliverable").and_return "ETSI EN 319 532-4 V1.3.0 (2023-10)"
       expect(subject.docnumber).to eq "ETSI EN 319 532-4 V1.3.0 (2023-10)"
+    end
+
+    it "#link" do
+      expect(row).to receive(:[]).with("Details link").and_return "https://www.etsi.org/src"
+      expect(row).to receive(:[]).with("PDF link").and_return "https://www.etsi.org/pdf"
+      link = subject.link
+      expect(link).to be_instance_of Array
+      expect(link.first).to be_instance_of RelatonBib::TypedUri
+      expect(link.first.content.to_s).to eq "https://www.etsi.org/src"
+      expect(link.first.type).to eq "src"
+      expect(link.last.content.to_s).to eq "https://www.etsi.org/pdf"
+      expect(link.last.type).to eq "pdf"
     end
 
     it "#date" do
