@@ -1,7 +1,7 @@
 module RelatonEtsi
   class DataParser
-    ATTRS = %i[id title docnumber link date docid version status keyword editorialgroup
-               doctype abstract language script].freeze
+    ATTRS = %i[id title docnumber link date docid version status contributor
+               keyword editorialgroup doctype abstract language script].freeze
 
     def initialize(row)
       @row = row
@@ -55,6 +55,15 @@ module RelatonEtsi
     def status
       status = @row["Status"] == "On Approval" ? "#{pubid.type} approval" : @row["Status"]
       RelatonBib::DocumentStatus.new(stage: status)
+    end
+
+    def contributor
+      name = RelatonBib::LocalizedString.new(
+        "European Telecommunications Standards Institute", "en", "Latn"
+      )
+      abbrev = RelatonBib::LocalizedString.new("ETSI", "en", "Latn")
+      entity = RelatonBib::Organization.new name: [name], abbreviation: abbrev
+      [RelatonBib::ContributionInfo.new(entity: entity, role: [{ type: "publisher" }])]
     end
 
     def keyword

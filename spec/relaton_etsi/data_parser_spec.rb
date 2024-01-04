@@ -20,15 +20,16 @@ describe RelatonEtsi::DataParser do
       expect(subject).to receive(:docid).and_return :docid
       expect(subject).to receive(:version).and_return :version
       expect(subject).to receive(:status).and_return :status
+      expect(subject).to receive(:contributor).and_return :contributor
       expect(subject).to receive(:keyword).and_return :keyword
       expect(subject).to receive(:editorialgroup).and_return :editorialgroup
       expect(subject).to receive(:doctype).and_return :doctype
       expect(subject).to receive(:abstract).and_return :abstract
       expect(RelatonEtsi::BibliographicItem).to receive(:new).with(
         id: :id, title: :title, docnumber: :docnumber, link: :link, date: :date,
-        docid: :docid, version: :version, status: :status, keyword: :keyword,
-        editorialgroup: :editorialgroup, doctype: :doctype, abstract: :abstract,
-        language: ["en"], script: ["Latn"]
+        docid: :docid, version: :version, status: :status, contributor: :contributor,
+        keyword: :keyword, editorialgroup: :editorialgroup, doctype: :doctype,
+        abstract: :abstract, language: ["en"], script: ["Latn"]
       ).and_return :bibitem
       expect(subject.parse).to eq :bibitem
     end
@@ -119,6 +120,17 @@ describe RelatonEtsi::DataParser do
           expect(status).to be_instance_of RelatonBib::DocumentStatus
           expect(status.stage.value).to eq "ES approval"
         end
+      end
+
+      it "#contributor" do
+        contrib = subject.contributor
+        expect(contrib).to be_instance_of Array
+        expect(contrib.first).to be_instance_of RelatonBib::ContributionInfo
+        expect(contrib.first.entity).to be_instance_of RelatonBib::Organization
+        expect(contrib.first.entity.name.first.content).to eq "European Telecommunications Standards Institute"
+        expect(contrib.first.entity.name.first.language).to eq ["en"]
+        expect(contrib.first.entity.name.first.script).to eq ["Latn"]
+        expect(contrib.first.entity.abbreviation.content).to eq "ETSI"
       end
 
       it "Published" do
