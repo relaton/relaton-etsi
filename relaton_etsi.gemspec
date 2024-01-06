@@ -35,7 +35,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "relaton-bib", "~> 1.17.0"
+  spec.add_dependency "relaton-bib", "~> 1.18.0"
   spec.add_dependency "relaton-index", "~> 0.2.7"
 
   # For more information and examples about making a new gem, check out our
