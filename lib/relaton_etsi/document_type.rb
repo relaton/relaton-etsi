@@ -34,13 +34,13 @@ module RelatonEtsi
     def check_type(type)
       return if DOCTYPES.value? type
 
-      Util.warn "WARNING: invalid doctype: `#{type}`"
+      Util.warn "invalid doctype: `#{type}`"
     end
 
     def check_abbreviation(abbreviation)
       return if abbreviation.nil? || DOCTYPES.key?(abbreviation)
 
-      Util.warn "WARNING: invalid doctype abbreviation: `#{abbreviation}`"
+      Util.warn "invalid doctype abbreviation: `#{abbreviation}`"
     end
   end
 end

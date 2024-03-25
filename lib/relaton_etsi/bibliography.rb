@@ -32,14 +32,14 @@ module RelatonEtsi
     # @param opts [Hash] options
     # @return [RelatonEtsi::BibliographicItem]
     def get(ref, _year = nil, _opts = {})
-      Util.warn "(#{ref}) Fetching from Relaton repository ..."
+      Util.info "Fetching from Relaton repository ...", key: ref
       result = search(ref)
       unless result
-        Util.warn "(#{ref}) Not found."
+        Util.info "Not found.", key: ref
         return
       end
 
-      Util.warn "(#{ref}) Found: `#{result.docidentifier[0].id}`"
+      Util.info "Found: `#{result.docidentifier[0].id}`", key: ref
       result
     end
 

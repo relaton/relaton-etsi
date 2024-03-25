@@ -23,6 +23,10 @@ module RelatonEtsi
         BibliographicItem.new(**item_hash)
       end
 
+      def create_doctype(type)
+        DocumentType.new type: type.text, abbreviation: type[:abbreviation]
+      end
+
       # def fetch_status(item)
       #   status = item.at "./status"
       #   return unless status
