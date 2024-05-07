@@ -51,7 +51,7 @@ describe RelatonEtsi::DataFetcher do
       it "yaml" do
         subject.instance_variable_set :@format, "yaml"
         bibitem = double "bibitem"
-        expect(bibitem).to receive(:to_hash).and_return :hash
+        expect(bibitem).to receive(:to_h).and_return :hash
         expect(subject.content(bibitem)).to eq "--- :hash\n"
       end
 

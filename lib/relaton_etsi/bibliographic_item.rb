@@ -53,7 +53,7 @@ module RelatonEtsi
       end
     end
 
-    def to_hash # rubocop:disable Metrics/AbcSize
+    def to_h # rubocop:disable Metrics/AbcSize
       hash = super
       hash["marker"] = marker if marker
       hash["frequency"] = frequency if frequency.any?

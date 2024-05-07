@@ -63,7 +63,7 @@ module RelatonEtsi
       )
       abbrev = RelatonBib::LocalizedString.new("ETSI", "en", "Latn")
       entity = RelatonBib::Organization.new name: [name], abbreviation: abbrev
-      [RelatonBib::ContributionInfo.new(entity: entity, role: [{ type: "publisher" }])]
+      [RelatonBib::Contributor.new(entity: entity, role: [{ type: "publisher" }])]
     end
 
     def keyword

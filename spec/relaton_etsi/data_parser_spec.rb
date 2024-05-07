@@ -50,7 +50,7 @@ describe RelatonEtsi::DataParser do
       title = subject.title
       expect(title).to be_instance_of Array
       expect(title.first).to be_instance_of RelatonBib::TypedTitleString
-      expect(title.first.title.content).to eq "Title"
+      expect(title.first.to_s).to eq "Title"
     end
 
     it "#docnumber" do
@@ -125,7 +125,7 @@ describe RelatonEtsi::DataParser do
       it "#contributor" do
         contrib = subject.contributor
         expect(contrib).to be_instance_of Array
-        expect(contrib.first).to be_instance_of RelatonBib::ContributionInfo
+        expect(contrib.first).to be_instance_of RelatonBib::Contributor
         expect(contrib.first.entity).to be_instance_of RelatonBib::Organization
         expect(contrib.first.entity.name.first.content).to eq "European Telecommunications Standards Institute"
         expect(contrib.first.entity.name.first.language).to eq ["en"]

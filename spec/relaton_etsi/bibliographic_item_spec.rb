@@ -4,6 +4,7 @@ describe RelatonEtsi::BibliographicItem do
     tc = RelatonBib::TechnicalCommittee.new RelatonBib::WorkGroup.new(name: "WG1")
     editorialgroup = RelatonBib::EditorialGroup.new [tc]
     doctype = RelatonEtsi::DocumentType.create_from_abbreviation "EN"
+    abstract = RelatonBib::Abstract.new content: "abstract", language: ["en"], script: ["Latn"]
     described_class.new(
       id: "ETSIEN319532-4V1.3.02023-10",
       title: [{ content: "Title", language: "en", script: "Latn" }],
@@ -12,10 +13,9 @@ describe RelatonEtsi::BibliographicItem do
       date: [{ type: "published", on: "2023-10" }], docid: [docid],
       version: [RelatonBib::BibliographicItem::Version.new(nil, "1.3.0")],
       status: RelatonBib::DocumentStatus.new(stage: "draft"),
-      keyword: ["keyword"], editorialgroup: editorialgroup,
-      doctype: doctype, abstract: [{ content: "abstract", language: "en", script: "Latn" }],
-      language: ["en"], script: ["Latn"], marker: "Current", frequency: ["Annual"],
-      mandate: ["M/123"], custom_collection: "HSs cited in OJ"
+      keyword: ["keyword"], editorialgroup: editorialgroup, doctype: doctype,
+      abstract: [abstract], language: ["en"], script: ["Latn"], marker: "Current",
+      frequency: ["Annual"], mandate: ["M/123"], custom_collection: "HSs cited in OJ"
     )
   end
 
@@ -28,9 +28,9 @@ describe RelatonEtsi::BibliographicItem do
   end
 
   it "creates from hash" do
-    hash = subject.to_hash
+    hash = subject.to_h
     item = RelatonEtsi::BibliographicItem.from_hash hash
-    expect(item.to_hash).to eq hash
+    expect(item.to_h).to eq hash
   end
 
   context "instance methods" do
@@ -59,8 +59,8 @@ describe RelatonEtsi::BibliographicItem do
       end
     end
 
-    it "#to_hash" do
-      hash = subject.to_hash
+    it "#to_h" do
+      hash = subject.to_h
       file = "spec/fixtures/item_hash.yaml"
       File.write file, hash.to_yaml, encoding: "UTF-8"
       expect(hash["doctype"]["type"]).to eq "European Standard"
