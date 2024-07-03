@@ -1,9 +1,6 @@
 module RelatonEtsi
   module Util
     extend RelatonBib::Util
-
-    def self.logger
-      RelatonEtsi.configuration.logger
-    end
+    PROGNAME = "relaton-etsi".freeze
   end
 end

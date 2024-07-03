@@ -5,8 +5,8 @@ describe RelatonEtsi::Bibliography do
       expect(item).to be_instance_of RelatonEtsi::BibliographicItem
       expect(item.docidentifier.first.id).to eq "ETSI GS ZSM 012 V1.1.1 (2022-12)"
     end.to output(
-      match(/\[relaton-etsi\] \(ETSI GS ZSM 012\) Fetching from Relaton repository \.\.\./).and(
-        match(/\[relaton-etsi\] \(ETSI GS ZSM 012\) Found: `ETSI GS ZSM 012 V1.1.1 \(2022-12\)`/),
+      match(/\[relaton-etsi\] INFO: \(ETSI GS ZSM 012\) Fetching from Relaton repository \.\.\./).and(
+        match(/\[relaton-etsi\] INFO: \(ETSI GS ZSM 012\) Found: `ETSI GS ZSM 012 V1.1.1 \(2022-12\)`/),
       ),
     ).to_stderr_from_any_process
   end
@@ -19,6 +19,6 @@ describe RelatonEtsi::Bibliography do
   it "not found" do
     expect do
       described_class.get "ETSI GS ZSM 011"
-    end.to output(/\[relaton-etsi\] \(ETSI GS ZSM 011\) Not found\./).to_stderr_from_any_process
+    end.to output(/\[relaton-etsi\] INFO: \(ETSI GS ZSM 011\) Not found\./).to_stderr_from_any_process
   end
 end

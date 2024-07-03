@@ -8,13 +8,13 @@ describe RelatonEtsi::DocumentType do
     it "invalid type" do
       expect do
         described_class.new type: "invalid"
-      end.to output(/WARNING: invalid doctype: `invalid`/).to_stderr_from_any_process
+      end.to output(/\[relaton-etsi\] WARN: invalid doctype: `invalid`/).to_stderr_from_any_process
     end
 
     it "invalid abbreviation" do
       expect do
         described_class.new type: "European Standard", abbreviation: "invalid"
-      end.to output(/WARNING: invalid doctype abbreviation: `invalid`/).to_stderr_from_any_process
+      end.to output(/\[relaton-etsi\] WARN: invalid doctype abbreviation: `invalid`/).to_stderr_from_any_process
     end
   end
 

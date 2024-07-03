@@ -23,24 +23,13 @@ Or install it yourself as:
 
 == Usage
 
-=== Configuration
-
-Configuration is optional. The available option is `logger` which is a `Logger` instance. By default, the logger is `Logger.new($stderr)` with `Logger::WARN` level. To change the logger level, use `RelatonEtsi.configure` block.
+=== Search for a standard using keywords
 
 [source,ruby]
 ----
 require 'relaton_etsi'
 => true
 
-RelatonEtsi.configure do |config|
-  config.logger.level = Logger::DEBUG
-end
-----
-
-=== Search for a standard using keywords
-
-[source,ruby]
-----
 item = RelatonEtsi::Bibliography.get("ETSI GS ZSM 012 V1.1.1")
 [relaton-etsi] (ETSI GS ZSM 012 V1.1.1) Fetching from Relaton repository ...
 [relaton-etsi] (ETSI GS ZSM 012 V1.1.1) Found: `ETSI GS ZSM 012 V1.1.1 (2022-12)`
@@ -155,6 +144,10 @@ Stopped at: 2023-12-05 22:47:55 -0500
 Done in: 204 sec.
 => nil
 ----
+
+=== Logging
+
+RelatonEtsi uses the relaton-logger gem for logging. By default, it logs to STDOUT. To change the log levels and add other loggers, read the https://github.com/relaton/relaton-logger#usage[relaton-logger] documentation.
 
 == Development
 
