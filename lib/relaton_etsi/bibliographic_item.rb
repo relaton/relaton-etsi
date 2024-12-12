@@ -55,11 +55,15 @@ module RelatonEtsi
 
     def to_hash # rubocop:disable Metrics/AbcSize
       hash = super
-      hash["marker"] = marker if marker
-      hash["frequency"] = frequency if frequency.any?
-      hash["mandate"] = mandate if mandate.any?
-      hash["custom_collection"] = custom_collection if custom_collection
+      hash["ext"]["marker"] = marker if marker
+      hash["ext"]["frequency"] = frequency if frequency.any?
+      hash["ext"]["mandate"] = mandate if mandate.any?
+      hash["ext"]["custom_collection"] = custom_collection if custom_collection
       hash
+    end
+
+    def has_ext?
+      super || marker || frequency.any? || mandate.any? || custom_collection
     end
 
     def to_asciibib(prefix = "") # rubocop:disable Metrics/AbcSize

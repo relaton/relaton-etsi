@@ -63,12 +63,12 @@ describe RelatonEtsi::BibliographicItem do
       hash = subject.to_hash
       file = "spec/fixtures/item_hash.yaml"
       File.write file, hash.to_yaml, encoding: "UTF-8"
-      expect(hash["doctype"]["type"]).to eq "European Standard"
-      expect(hash["doctype"]["abbreviation"]).to eq "EN"
-      expect(hash["marker"]).to eq "Current"
-      expect(hash["frequency"]).to eq ["Annual"]
-      expect(hash["mandate"]).to eq ["M/123"]
-      expect(hash["custom_collection"]).to eq "HSs cited in OJ"
+      expect(hash["ext"]["doctype"]["type"]).to eq "European Standard"
+      expect(hash["ext"]["doctype"]["abbreviation"]).to eq "EN"
+      expect(hash["ext"]["marker"]).to eq "Current"
+      expect(hash["ext"]["frequency"]).to eq ["Annual"]
+      expect(hash["ext"]["mandate"]).to eq ["M/123"]
+      expect(hash["ext"]["custom_collection"]).to eq "HSs cited in OJ"
     end
 
     it "#to_asciibib" do

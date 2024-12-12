@@ -35,16 +35,16 @@ abstract:
   format: text/plain
 keyword:
 - content: keyword
-doctype:
-  type: European Standard
-  abbreviation: EN
-editorialgroup:
-- name: WG1
 ext:
   schema-version: v0.0.3
-marker: Current
-frequency:
-- Annual
-mandate:
-- M/123
-custom_collection: HSs cited in OJ
+  doctype:
+    type: European Standard
+    abbreviation: EN
+  editorialgroup:
+  - name: WG1
+  marker: Current
+  frequency:
+  - Annual
+  mandate:
+  - M/123
+  custom_collection: HSs cited in OJ

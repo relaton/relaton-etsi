@@ -36,7 +36,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.require_paths = ["lib"]
 
   spec.add_dependency "csv", "~> 3.0"
-  spec.add_dependency "relaton-bib", "~> 1.19.0"
+  spec.add_dependency "relaton-bib", "~> 1.20.0"
   spec.add_dependency "relaton-index", "~> 0.2.7"
 
   # For more information and examples about making a new gem, check out our
