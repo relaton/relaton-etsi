@@ -1,5 +1,5 @@
 <bibitem id="ETSIEN319532-4V1.3.02023-10" schema-version="v1.2.9">
-  <title language="en" script="Latn">Title</title>
+  <title format="text/plain" language="en" script="Latn">Title</title>
   <uri type="src">http://webapp.etsi.org/workprogram/Report_WorkItem.asp?WKI_ID=62010</uri>
   <docidentifier type="ETSI" primary="true">ETSI EN 319 532-4 V1.3.0 (2023-10)</docidentifier>
   <docnumber>ETSI EN 319 532-4 V1.3.0 (2023-10)</docnumber>
@@ -11,11 +11,6 @@
   </version>
   <language>en</language>
   <script>Latn</script>
-  <abstract language="en" script="Latn">abstract</abstract>
-  <status>
-    <stage>EN approval</stage>
-  </status>
-  <keyword>
-    <taxon>keyword</taxon>
-  </keyword>
+  <abstract format="text/plain" language="en" script="Latn">abstract</abstract>
+  <keyword>keyword</keyword>
 </bibitem>

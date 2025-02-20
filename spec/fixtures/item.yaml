@@ -1,0 +1,48 @@
+---
+schema_version: v1.2.9
+id: ETSIEN319532-4V1.3.02023-10
+title:
+- content: Title
+  language: en
+  script: Latn
+source:
+- content: http://webapp.etsi.org/workprogram/Report_WorkItem.asp?WKI_ID=62010
+  type: src
+docidentifier:
+- content: ETSI EN 319 532-4 V1.3.0 (2023-10)
+  type: ETSI
+  primary: true
+docnumber: ETSI EN 319 532-4 V1.3.0 (2023-10)
+date:
+- type: published
+  at: 2023-10
+version:
+- draft: 1.3.0
+language:
+- en
+script:
+- Latn
+abstract:
+- content: abstract
+  language: en
+  script: Latn
+status:
+  stage: EN approval
+keyword:
+  taxon:
+  - content: keyword
+ext:
+  schema_version: v0.0.3
+  doctype:
+    content: European Standard
+    abbreviation: EN
+  subdoctype: EN
+  editorialgroup:
+    technical_committee:
+    - content: WG1
+  marker: Current
+  frequency:
+  - Annual
+  mandate:
+  - M/123
+  custom_collection: HSs cited in OJ

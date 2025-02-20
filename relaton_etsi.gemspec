@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require_relative "lib/relaton_etsi/version"
+require_relative "lib/relaton/etsi/version"
 
 Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.name = "relaton-etsi"
-  spec.version = RelatonEtsi::VERSION
+  spec.version = Relaton::Etsi::VERSION
   spec.authors = ["Ribose Inc."]
   spec.email = ["open.source@ribose.com"]
 
-  spec.summary =  "RelatonEtsi: retrieve ETSI Standards for bibliographic " \
+  spec.summary =  "Relaton::Etsi: retrieve ETSI Standards for bibliographic " \
                   "using the BibliographicItem model"
-  spec.description = "RelatonEtsi: retrieve ETSI Standards for bibliographic " \
+  spec.description = "Relaton::Etsi: retrieve ETSI Standards for bibliographic " \
                   "using the BibliographicItem model"
   spec.homepage = "https://github.com/relaton/relaton-etsi"
   spec.license = "BSD-2-Clause"
@@ -36,7 +36,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.require_paths = ["lib"]
 
   spec.add_dependency "csv", "~> 3.0"
-  spec.add_dependency "relaton-bib", "~> 1.20.0"
+  spec.add_dependency "relaton-bib", "~> 2.0.0-alpha.1"
   spec.add_dependency "relaton-index", "~> 0.2.7"
 
   # For more information and examples about making a new gem, check out our
