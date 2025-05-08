@@ -7,7 +7,7 @@ SimpleCov.start do
   add_filter "/spec/"
 end
 
-require "relaton_etsi"
+require "relaton/etsi"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
