@@ -27,10 +27,13 @@ module RelatonEtsi
     end
 
     def fetch
+      time = Time.now
+      date = time.to_date + 1
+      timestamp = (time.to_f * 1000).to_i
       url = "https://www.etsi.org/?option=com_standardssearch&view=data&format=csv&includeScope=1&page=1&search=&" \
             "title=1&etsiNumber=1&content=1&version=0&onApproval=1&published=1&withdrawn=1&historical=1&isCurrent=1&" \
-            "superseded=1&startDate=1988-01-15&endDate=2023-10-31&harmonized=0&keyword=&TB=&stdType=&frequency=&" \
-            "mandate=&collection=&sort=1&x=1698720135146"
+            "superseded=1&startDate=1988-01-15&endDate=#{date}&harmonized=0&keyword=&TB=&stdType=&frequency=&" \
+            "mandate=&collection=&sort=1&x=#{timestamp}"
       csv = OpenURI.open_uri(url) { |f| f.readlines.join }
       CSV.parse(csv, headers: true, col_sep: ';', skip_lines: /sep=;/).each do |row|
         save DataParser.new(row).parse
