@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "net/http"
-require "open-uri"
+require "mechanize"
 require "csv"
 require "relaton/index"
 require "relaton_bib"

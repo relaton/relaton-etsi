@@ -34,7 +34,7 @@ module RelatonEtsi
             "title=1&etsiNumber=1&content=1&version=0&onApproval=1&published=1&withdrawn=1&historical=1&isCurrent=1&" \
             "superseded=1&startDate=1988-01-15&endDate=#{date}&harmonized=0&keyword=&TB=&stdType=&frequency=&" \
             "mandate=&collection=&sort=1&x=#{timestamp}"
-      csv = OpenURI.open_uri(url) { |f| f.readlines.join }
+      csv = Mechanize.new.get(url).body
       CSV.parse(csv, headers: true, col_sep: ';', skip_lines: /sep=;/).each do |row|
         save DataParser.new(row).parse
       end
