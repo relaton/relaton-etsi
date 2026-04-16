@@ -3,7 +3,6 @@ require_relative "doctype"
 module Relaton
   module Etsi
     class Ext < Bib::Ext
-      attribute :schema_version, method: :get_schema_version
       attribute :doctype, Doctype
       attribute :marker, :string, values: %w[Current Superseded]
       attribute :frequency, :string, collection: true
@@ -19,9 +18,14 @@ module Relaton
         map_element "custom-collection", to: :custom_collection
       end
 
-      def get_schema_version
-        Relaton.schema_versions["relaton-model-etsi"]
+      key_value do
+        map_element "marker", to: :marker
+        map_element "frequency", to: :frequency
+        map_element "mandate", to: :mandate
+        map_element "custom_collection", to: :custom_collection
       end
+
+      def get_schema_version = Relaton.schema_versions["relaton-model-etsi"]
     end
   end
 end
