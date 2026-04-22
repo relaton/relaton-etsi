@@ -35,7 +35,7 @@ module RelatonEtsi
             "superseded=1&startDate=1988-01-15&endDate=#{date}&harmonized=0&keyword=&TB=&stdType=&frequency=&" \
             "mandate=&collection=&sort=1&x=#{timestamp}"
       csv = Mechanize.new.get(url).body
-      CSV.parse(csv, headers: true, col_sep: ';', skip_lines: /sep=;/).each do |row|
+      CSV.parse(csv, headers: true, col_sep: ";", skip_lines: /sep=;/, liberal_parsing: true).each do |row|
         save DataParser.new(row).parse
       end
       index1.save
