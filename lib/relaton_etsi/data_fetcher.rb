@@ -1,5 +1,7 @@
 module RelatonEtsi
   class DataFetcher
+    PAGE_SIZE = 50
+
     #
     # Initialize data fetcher.
     #
@@ -27,18 +29,65 @@ module RelatonEtsi
     end
 
     def fetch
-      time = Time.now
-      date = time.to_date + 1
-      timestamp = (time.to_f * 1000).to_i
-      url = "https://www.etsi.org/?option=com_standardssearch&view=data&format=csv&includeScope=1&page=1&search=&" \
-            "title=1&etsiNumber=1&content=1&version=0&onApproval=1&published=1&withdrawn=1&historical=1&isCurrent=1&" \
-            "superseded=1&startDate=1988-01-15&endDate=#{date}&harmonized=0&keyword=&TB=&stdType=&frequency=&" \
-            "mandate=&collection=&sort=1&x=#{timestamp}"
-      csv = Mechanize.new.get(url).body
-      CSV.parse(csv, headers: true, col_sep: ";", skip_lines: /sep=;/, liberal_parsing: true).each do |row|
-        save DataParser.new(row).parse
-      end
+      agent = Mechanize.new
+      first_page = fetch_page(agent, 1)
+      process_records(first_page)
+      fetch_remaining_pages(agent, first_page)
       index1.save
+    end
+
+    def fetch_remaining_pages(agent, first_page)
+      total = first_page.first ? first_page.first["total_count"].to_i : 0
+      total_pages = (total / PAGE_SIZE.to_f).ceil
+      (2..total_pages).each do |page|
+        records = fetch_page(agent, page)
+        break if records.empty?
+
+        process_records(records)
+      end
+    end
+
+    def fetch_page(agent, page)
+      JSON.parse(agent.get(url(page)).body)
+    end
+
+    def process_records(records)
+      records.each do |record|
+        save DataParser.new(normalize(record)).parse
+      end
+    end
+
+    def url(page)
+      date = Time.now.to_date + 1
+      timestamp = (Time.now.to_f * 1000).to_i
+      "https://www.etsi.org/custom/standardssearch/data.php?format=json&includeScope=1&" \
+        "page=#{page}&search=&title=1&etsiNumber=1&content=1&version=0&onApproval=1&" \
+        "published=1&withdrawn=1&historical=1&isCurrent=1&superseded=1&" \
+        "startDate=1988-01-15&endDate=#{date}&harmonized=0&keyword=&TB=&stdType=&" \
+        "frequency=&mandate=&collection=&sort=1&x=#{timestamp}"
+    end
+
+    def normalize(record)
+      {
+        "ETSI deliverable" => record["ETSI_DELIVERABLE"],
+        "title" => record["TITLE"],
+        "Details link" => "https://webapp.etsi.org/workprogram/Report_WorkItem.asp?WKI_ID=#{record['wki_id']}",
+        "PDF link" => "https://www.etsi.org/deliver/#{record['EDSpathname']}#{record['EDSPDFfilename']}",
+        "Status" => derive_status(record),
+        "Keywords" => record["Keywords"].to_s,
+        "Technical body" => record["TB"],
+        "Scope" => record["Scope"],
+      }
+    end
+
+    def derive_status(record)
+      return "Withdrawn" if record["ACTION_TYPE"] == "WD"
+
+      code = record["STATUS_CODE"].to_i
+      return "On Approval" if code < 12
+      return "Historical" if code == 13
+
+      "Published"
     end
 
     def save(bib)

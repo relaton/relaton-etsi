@@ -2,7 +2,7 @@
 
 require "net/http"
 require "mechanize"
-require "csv"
+require "json"
 require "relaton/index"
 require "relaton_bib"
 require_relative "relaton_etsi/version"
