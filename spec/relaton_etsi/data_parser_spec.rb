@@ -26,7 +26,7 @@ describe RelatonEtsi::DataParser do
       expect(subject).to receive(:doctype).and_return :doctype
       expect(subject).to receive(:abstract).and_return :abstract
       expect(RelatonEtsi::BibliographicItem).to receive(:new).with(
-        id: :id, title: :title, docnumber: :docnumber, link: :link, date: :date,
+        id: :id, type: "standard", title: :title, docnumber: :docnumber, link: :link, date: :date,
         docid: :docid, version: :version, status: :status, contributor: :contributor,
         keyword: :keyword, editorialgroup: :editorialgroup, doctype: :doctype,
         abstract: :abstract, language: ["en"], script: ["Latn"]
