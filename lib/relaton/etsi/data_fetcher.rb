@@ -1,6 +1,6 @@
 require "date"
+require "json"
 require "mechanize"
-require "csv"
 require "relaton/core"
 require "relaton/index"
 require_relative "../etsi"
@@ -9,10 +9,12 @@ require_relative "data_parser"
 module Relaton
   module Etsi
     class DataFetcher < Core::DataFetcher
-      SOURCEURL = "https://www.etsi.org/?option=com_standardssearch&view=data&format=csv&includeScope=1&" \
-        "page=1&search=&title=1&etsiNumber=1&content=1&version=0&onApproval=1&published=1&withdrawn=1&" \
-        "historical=1&isCurrent=1&superseded=1&startDate=1988-01-15&endDate=%<date>s&harmonized=0&" \
-        "keyword=&TB=&stdType=&frequency=&mandate=&collection=&sort=1&x=%<timestamp>s".freeze
+      PAGE_SIZE = 50
+
+      SOURCEURL = "https://www.etsi.org/custom/standardssearch/data.php?format=json&includeScope=1&" \
+        "page=%<page>s&search=&title=1&etsiNumber=1&content=1&version=0&onApproval=1&published=1&" \
+        "withdrawn=1&historical=1&isCurrent=1&superseded=1&startDate=1988-01-15&endDate=%<date>s&" \
+        "harmonized=0&keyword=&TB=&stdType=&frequency=&mandate=&collection=&sort=1&x=%<timestamp>s".freeze
 
       def index
         @index ||= Relaton::Index.find_or_create :etsi, file: INDEX_FILE
@@ -28,16 +30,58 @@ module Relaton
       # @param [Object] _source unused, required by superclass interface
       #
       def fetch(_source = nil)
-        time = Time.now
-        date = time.to_date + 1
-        timestamp = (time.to_f * 1000).to_i
-        url = format(SOURCEURL, date: date, timestamp: timestamp)
-        csv = fetch_with_retry(url)
-        CSV.parse(csv, headers: true, col_sep: ";", skip_lines: /sep=;/).each do |row|
-          save DataParser.new(row, @errors).parse
-        end
+        first_page = fetch_page(1)
+        process_records(first_page)
+        fetch_remaining_pages(first_page)
         index.save
         report_errors
+      end
+
+      def fetch_remaining_pages(first_page)
+        total = first_page.first ? first_page.first["total_count"].to_i : 0
+        total_pages = (total / PAGE_SIZE.to_f).ceil
+        (2..total_pages).each do |page|
+          records = fetch_page(page)
+          break if records.empty?
+
+          process_records(records)
+        end
+      end
+
+      def fetch_page(page)
+        date = Time.now.to_date + 1
+        timestamp = (Time.now.to_f * 1000).to_i
+        url = format(SOURCEURL, page: page, date: date, timestamp: timestamp)
+        JSON.parse(fetch_with_retry(url))
+      end
+
+      def process_records(records)
+        records.each do |record|
+          save DataParser.new(normalize(record), @errors).parse
+        end
+      end
+
+      def normalize(record)
+        {
+          "ETSI deliverable" => record["ETSI_DELIVERABLE"],
+          "title" => record["TITLE"],
+          "Details link" => "https://webapp.etsi.org/workprogram/Report_WorkItem.asp?WKI_ID=#{record['wki_id']}",
+          "PDF link" => "https://www.etsi.org/deliver/#{record['EDSpathname']}#{record['EDSPDFfilename']}",
+          "Status" => derive_status(record),
+          "Keywords" => record["Keywords"].to_s,
+          "Technical body" => record["TB"],
+          "Scope" => record["Scope"],
+        }
+      end
+
+      def derive_status(record)
+        return "Withdrawn" if record["ACTION_TYPE"] == "WD"
+
+        code = record["STATUS_CODE"].to_i
+        return "On Approval" if code < 12
+        return "Historical" if code == 13
+
+        "Published"
       end
 
       NETWORK_ERRORS = [

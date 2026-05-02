@@ -13,10 +13,8 @@ module Relaton
       end
 
       def parse
-        args = ATTRS.each_with_object({}) do |attr, hash|
-          hash[attr] = send(attr)
-        end
-        ItemData.new(**args)
+        args = ATTRS.to_h { |attr| [attr, send(attr)] }
+        ItemData.new(type: "standard", **args)
       end
 
       def pubid

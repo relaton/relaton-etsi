@@ -33,6 +33,10 @@ describe Relaton::Etsi::DataParser do
         expect(subject).to be_instance_of Relaton::Etsi::ItemData
       end
 
+      it "has correct type" do
+        expect(subject.type).to eq "standard"
+      end
+
       it "has correct id" do
         expect(subject.id).to eq "ETSIEN3195324V130202310"
       end
