@@ -64,6 +64,25 @@ describe Relaton::Etsi::Bibliography do
       expect(stub).to have_been_requested
     end
 
+    it "when string order and version order disagree" do
+      stub = stub_data "data/etsi-ts-124-229-v19-6-0-2026-03.yaml"
+      described_class.search "ETSI TS 124 229"
+      expect(stub).to have_been_requested
+    end
+
+    it "when the editions span many releases" do
+      stub = stub_data "data/etsi-ts-129-571-v19-5-0-2026-02.yaml"
+      described_class.search "ETSI TS 129 571"
+      expect(stub).to have_been_requested
+    end
+
+    # A higher version wins over a later date. See `edition_key`.
+    it "when an older release has a later date" do
+      stub = stub_data "data/etsi-gs-cdm-002-v2-1-1-2023-02.yaml"
+      described_class.search "ETSI GS CDM 002"
+      expect(stub).to have_been_requested
+    end
+
     it "for an exact reference" do
       stub = stub_data "data/etsi-en-319-401-v2-3-1-2021-05.yaml"
       described_class.search "ETSI EN 319 401 V2.3.1 (2021-05)"
