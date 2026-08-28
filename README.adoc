@@ -37,6 +37,24 @@ item = Relaton::Etsi::Bibliography.get("ETSI GS ZSM 012 V1.1.1")
 ...
 ----
 
+=== Reference matching
+
+A reference matches a whole ETSI document number. Neither `ETSI TS 103 1` nor
+`ETSI TS 103` matches `ETSI TS 103 104`. A reference without a part number
+matches every part of the document. The `ETSI` prefix is optional.
+
+A reference without a version returns the newest edition of the document. A
+reference with a version and a date returns that edition.
+
+[source,ruby]
+----
+Relaton::Etsi::Bibliography.get("ETSI EN 319 401")
+[relaton-etsi] INFO: (ETSI EN 319 401) Found: `ETSI EN 319 401 V3.2.1 (2026-01)`
+
+Relaton::Etsi::Bibliography.get("ETSI EN 319 401 V2.3.1 (2021-05)")
+[relaton-etsi] INFO: (ETSI EN 319 401 V2.3.1 (2021-05)) Found: `ETSI EN 319 401 V2.3.1 (2021-05)`
+----
+
 === XML serialization
 
 [source,ruby]

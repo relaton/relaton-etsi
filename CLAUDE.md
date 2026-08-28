@@ -60,7 +60,7 @@ Uses Lutaml for serialization:
 
 ### Data Flow
 
-1. `Bibliography.get(ref)` searches the relaton-data-etsi index
+1. `Bibliography.get(ref)` searches the relaton-data-etsi index. `Bibliography#best_match` keeps the rows that match the whole document number, then picks the highest version, and among equal versions the latest date. The index matches a String query with `include?`, so this filter is what stops `ETSI TS 103 1` from matching `ETSI TS 103 104`.
 2. Fetches YAML from GitHub, converts to `Item` using `from_yaml`
 3. `DataFetcher.fetch` pulls CSV from etsi.org, parses with `DataParser`, saves to output folder
 
